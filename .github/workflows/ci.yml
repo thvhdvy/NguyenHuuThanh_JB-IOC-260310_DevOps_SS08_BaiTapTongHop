@@ -21,7 +21,7 @@ jobs:
           POSTGRES_PASSWORD: test_password
         ports:
           - 5432:5432
-        options:
+        options: >-
           --health-cmd "pg_isready -U test_user -d testdb"
           --health-interval 5s
           --health-timeout 5s
@@ -55,7 +55,7 @@ jobs:
       - name: Set image name and tag
         run: |
           OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-          echo "$IMAGE=gchr.io/${OWNER}/order-service" >> $GITHUB_ENV
+          echo "IMAGE=gchr.io/${OWNER}/order-service" >> $GITHUB_ENV
           echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
 
       - name: Login to GHCR
@@ -78,5 +78,4 @@ jobs:
     needs: build_image
     steps:
       - name: Deploy 
-        run: echo "Deploying order-service from GHCR
-          postgres:"
+        run: echo "Deploying order-service from GHCR"
