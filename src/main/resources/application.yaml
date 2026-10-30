@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: order-service
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/quickbite_order_db}
+    username: ${DB_USER:quickbite}
+    password: ${DB_PASSWORD:quickbite}
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: ${PORT:8083}
+
+services:
+  user:
+    url: ${USER_SERVICE_URL:http://localhost:8081}
+  restaurant:
+    url: ${RESTAURANT_SERVICE_URL:http://localhost:8082}
+  notification:
+    url: ${NOTIFICATION_SERVICE_URL:http://localhost:8084}
+
+management:
+  endpoints:
+    web:
+      base-path: /api/v1/orders/actuator
+      exposure:
+        include: health
