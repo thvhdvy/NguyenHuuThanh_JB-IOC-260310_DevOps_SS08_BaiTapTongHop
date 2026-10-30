@@ -13,18 +13,19 @@ jobs:
   test: 
     runs-on: ubuntu-latest
     services:
-      image: postgres:15-alpine
-      env:
-        POSTGRES_DB: testdb
-        POSTGRES_USER: test_user
-        POSTGRES_PASSWORD: test_password
-      ports:
-        - 5432:5432
-      options:
-        --health-cmd "pg_isready -U test_user -d testdb"
-        --health-interval 5s
-        --health-timeout 5s
-        --health-retries 10
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_DB: testdb
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+        ports:
+          - 5432:5432
+        options:
+          --health-cmd "pg_isready -U test_user -d testdb"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
@@ -77,4 +78,5 @@ jobs:
     needs: build_image
     steps:
       - name: Deploy 
-        run: echo "Deploying order-service from GHCR"
+        run: echo "Deploying order-service from GHCR
+          postgres:"
